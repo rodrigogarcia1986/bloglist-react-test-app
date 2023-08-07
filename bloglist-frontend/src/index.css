@@ -1,0 +1,28 @@
+.notification {
+    color: red;
+    background: lightgrey;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.blogTitle {
+    color: green;
+    font-size: 15px;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 2px;
+    margin-bottom: 2px;
+}
+
+.blogDetail {
+    color: floralwhite;
+    background: green;
+    font-size: 14px;
+    border-style: solid;
+    border-radius: 2px;
+    padding: 2px;
+    margin-bottom: 2px;
+}
