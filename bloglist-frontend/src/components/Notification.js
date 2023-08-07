@@ -1,5 +1,4 @@
 function Notification({ notification }) {
-
   console.log('Data received at Notification component', notification)
 
   if (notification === null) {
@@ -9,7 +8,6 @@ function Notification({ notification }) {
       <div>
         <p className="notification">{notification}</p>
       </div>
-
     )
   }
 }

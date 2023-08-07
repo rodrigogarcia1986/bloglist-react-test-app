@@ -1,8 +1,15 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const AddBlog = ({ handleAddBlog, handleBlogTitleChange, handleBlogAuthorChange, handleBlogUrlChange, newBlogTitle, newBlogAuthor, newBlogUrl }) => {
-
+const AddBlog = ({
+  handleAddBlog,
+  handleBlogTitleChange,
+  handleBlogAuthorChange,
+  handleBlogUrlChange,
+  newBlogTitle,
+  newBlogAuthor,
+  newBlogUrl,
+}) => {
   const [isVisible, setVisible] = useState(false)
 
   const hideWhenVisible = { display: isVisible ? 'none' : '' }
@@ -18,15 +25,35 @@ const AddBlog = ({ handleAddBlog, handleBlogTitleChange, handleBlogAuthorChange,
         <h3>Create new blog!</h3>
         <br />
         <form onSubmit={handleAddBlog}>
-          <label>title</label> <input id="title" type="text" value={newBlogTitle} onChange={handleBlogTitleChange} />
+          <label>title</label>{' '}
+          <input
+            id="title"
+            type="text"
+            value={newBlogTitle}
+            onChange={handleBlogTitleChange}
+          />
           <br />
-          <label>author</label> <input id="author" type="text" value={newBlogAuthor} onChange={handleBlogAuthorChange} />
+          <label>author</label>{' '}
+          <input
+            id="author"
+            type="text"
+            value={newBlogAuthor}
+            onChange={handleBlogAuthorChange}
+          />
           <br />
-          <label>url</label> <input id="url" type="text" value={newBlogUrl} onChange={handleBlogUrlChange} />
+          <label>url</label>{' '}
+          <input
+            id="url"
+            type="text"
+            value={newBlogUrl}
+            onChange={handleBlogUrlChange}
+          />
           <br />
-          <button id="create" type="submit">create!</button>
+          <button id="create" type="submit">
+            create!
+          </button>
           <br />
-        </form >
+        </form>
       </div>
     </>
   )

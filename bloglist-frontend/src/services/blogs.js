@@ -3,16 +3,18 @@ const baseUrl = '/api/blogs'
 
 let token = null
 
-const setToken = newToken => {
+const setToken = (newToken) => {
   token = `Bearer ${newToken}`
+  //token = newToken
 }
 
 const getAll = () => {
   const request = axios.get(baseUrl)
-  return request.then(response => response.data)
+  return request.then((response) => response.data)
 }
 
 const create = async (title, author, url) => {
+
   const config = {
     headers: { Authorization: token },
   }
@@ -20,13 +22,15 @@ const create = async (title, author, url) => {
   const newBlog = {
     title,
     author,
-    url
+    url,
   }
 
   console.log('blogSent:', newBlog, '\nToken sent:', token)
+  console.log('config sent:', config)
 
   const response = await axios.post(baseUrl, newBlog, config)
   return response.data
+
 }
 
 const blogDelete = async (id) => {
@@ -35,7 +39,7 @@ const blogDelete = async (id) => {
     headers: { Authorization: token },
   }
 
-  console.log('Id sent from frontend:', id, typeof (id))
+  console.log('Id sent from frontend:', id, typeof id)
 
   try {
     const response = await axios.delete(`${baseUrl}/${id}`, config)

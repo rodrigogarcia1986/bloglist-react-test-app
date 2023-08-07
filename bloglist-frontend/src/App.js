@@ -19,13 +19,9 @@ const App = () => {
   //"username": "Alice" ,
   //"password": "456cde*G"
 
-
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs(blogs)
-    )
+    blogService.getAll().then((blogs) => setBlogs(blogs))
   }, [])
-
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('blogsAppLoggedUser')
@@ -62,21 +58,35 @@ const App = () => {
         setNotifications(null)
       }, 5000)
       console.log('Notification set on unsucessfull login:', { notifications })
-
     }
   }
 
   const formLogin = () => {
-
     return (
       <>
         <h1>Log in to application</h1>
         <form onSubmit={handleLogin}>
-          <label>username</label> <input id="username" type="text" value={username} name="Username" onChange={({ target }) => setUsername(target.value)} />
+          <label>username</label>{' '}
+          <input
+            id="username"
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
           <br />
-          <label>password</label> <input id="password" type="password" value={password} name="Password" onChange={({ target }) => setPassword(target.value)} />
+          <label>password</label>{' '}
+          <input
+            id="password"
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
           <br />
-          <button id="login-button" type="submit">login</button>
+          <button id="login-button" type="submit">
+            login
+          </button>
         </form>
       </>
     )
@@ -102,8 +112,21 @@ const App = () => {
 
   const handleAddBlog = async (event) => {
     event.preventDefault()
+
+    if (!(newBlogTitle || newBlogAuthor || newBlogUrl)) {
+      setNotifications('Please, inform title, author and url!')
+      setTimeout(() => {
+        setNotifications(null)
+      }, 5000)
+      return
+    }
+
     console.log('Adding new blog...')
-    const response = await blogService.create(newBlogTitle, newBlogAuthor, newBlogUrl)
+    const response = await blogService.create(
+      newBlogTitle,
+      newBlogAuthor,
+      newBlogUrl,
+    )
     console.log('Response after saving new Blog:', response)
     setBlogs(blogs.concat(response))
     setNotifications(`Added blog "${newBlogTitle}" from ${newBlogAuthor}!`)
@@ -118,14 +141,13 @@ const App = () => {
     console.log('Response on handleDeleteBlog', response)
 
     if (response.status === 204) {
-      const newBlogs = blogs.filter(blog => blog.id !== toDelete.id)
+      const newBlogs = blogs.filter((blog) => blog.id !== toDelete.id)
       setBlogs(newBlogs)
       setNotifications(`${toDelete.title} deleted!`)
       setTimeout(() => {
         setNotifications(null)
       }, 5000)
     } else {
-
       setNotifications(response.data.error)
       setTimeout(() => {
         setNotifications(null)
@@ -138,7 +160,7 @@ const App = () => {
     const response = await blogService.blogUpdate(id, dataToUpdate)
     console.log('Response after updating Blog:', response)
     const updatedBlogs = await blogService.getAll()
-    const updatedBlog = updatedBlogs.find(blog => blog.id === id)
+    const updatedBlog = updatedBlogs.find((blog) => blog.id === id)
     console.log('updated blog', updatedBlog)
     setBlogs(updatedBlogs)
     setNotifications(`Blog updated! Likes: ${updatedBlog.likes}`)
@@ -151,25 +173,34 @@ const App = () => {
 
   return (
     <div>
-
       <h2>Blogs</h2>
 
       <Notification notification={notifications} />
 
       {!user && formLogin()}
-      {user &&
+      {user && (
         <>
           <div>
-            <p> {user.username} logged in! <button type="button" onClick={() => {
-              console.log('Logout button clicked!')
-              window.localStorage.removeItem('blogsAppLoggedUser')
-              window.localStorage.clear()
-              setUser('')
-            }}>logout</button>
+            <p>
+              {' '}
+              {user.username} logged in!{' '}
+              <button
+                type="button"
+                onClick={() => {
+                  console.log('Logout button clicked!')
+                  window.localStorage.removeItem('blogsAppLoggedUser')
+                  window.localStorage.clear()
+                  setUser('')
+                }}
+              >
+                logout
+              </button>
             </p>
             <br />
-          </div><div>
-            <AddBlog handleAddBlog={handleAddBlog}
+          </div>
+          <div>
+            <AddBlog
+              handleAddBlog={handleAddBlog}
               handleBlogTitleChange={handleBlogTitleChange}
               handleBlogAuthorChange={handleBlogAuthorChange}
               handleBlogUrlChange={handleBlogUrlChange}
@@ -179,14 +210,16 @@ const App = () => {
             />
           </div>
         </>
-      }
+      )}
 
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog}
+      {blogs.map((blog) => (
+        <Blog
+          key={blog.id}
+          blog={blog}
           handleDeleteBlog={handleDeleteBlog}
           handleBlogUpdate={handleBlogUpdate}
         />
-      )}
+      ))}
     </div>
   )
 }
