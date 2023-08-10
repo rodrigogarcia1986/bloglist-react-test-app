@@ -1,4 +1,6 @@
+/* eslint-disable linebreak-style */
 import { useSelector } from 'react-redux'
+import { Warning } from '../styles'
 
 function Notification() {
 
@@ -9,9 +11,9 @@ function Notification() {
     return null
   } else {
     return (
-      <div>
+      <Warning>
         <p className="notification">{notification}</p>
-      </div>
+      </Warning>
     )
   }
 }

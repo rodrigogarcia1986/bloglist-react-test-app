@@ -1,7 +1,9 @@
+/* eslint-disable linebreak-style */
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogsReducer'
 import { useField } from '../utils/helpers'
+import { Button } from '../styles'
 
 const AddBlog = () => {
 
@@ -19,7 +21,7 @@ const AddBlog = () => {
   return (
     <>
       <div style={hideWhenVisible}>
-        <button onClick={() => setVisible(true)}>create</button>
+        <Button onClick={() => setVisible(true)}>create</Button>
       </div>
       <br />
       <div style={showWhenVisible}>
@@ -37,15 +39,16 @@ const AddBlog = () => {
           <input
             {...url} />
           <br />
-          <button id="create" type="button" onClick={() => {
+          <Button id="create" type="button" onClick={() => {
             const newBlog = { title: title.value, author: author.value, url: url.value }
             dispatch(createBlog(newBlog))
             resetTitle()
             resetAuthor()
             resetUrl()
           }}>
-            create!
-          </button>
+            save!
+          </Button>
+          <Button type="button" onClick={() => setVisible(false)}>cancel!</Button>
           <br />
         </form>
       </div>

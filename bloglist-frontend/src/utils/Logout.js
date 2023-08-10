@@ -1,6 +1,7 @@
 /* eslint-disable indent *//* eslint-disable linebreak-style */
 import { useDispatch } from 'react-redux'
 import { setUser } from '../reducers/userReducer'
+import { Button } from '../styles'
 
 const Logout = ({ user }) => {
 
@@ -10,7 +11,7 @@ const Logout = ({ user }) => {
     return (
         <>
             {user.username} logged in!
-            <button
+            <Button
                 type="button"
                 onClick={() => {
                     console.log('Logout button clicked!')
@@ -20,7 +21,7 @@ const Logout = ({ user }) => {
                 }}
             >
                 logout
-            </button>
+            </Button>
         </>
     )
 }
