@@ -1,5 +1,9 @@
-function Notification({ notification }) {
-  console.log('Data received at Notification component', notification)
+import { useSelector } from 'react-redux'
+
+function Notification() {
+
+  const notification = useSelector(state => state.notification)
+  console.log('notification state:', notification)
 
   if (notification === null) {
     return null

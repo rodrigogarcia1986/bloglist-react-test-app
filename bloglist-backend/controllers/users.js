@@ -13,9 +13,9 @@ userRouter.get('/', async (req, res) => {
 
 userRouter.post('/', async (req, res) => {
 
-    const { username, name, password } = req.body
+    const { username, email, password } = req.body
 
-    if (!username && !name && !password) {
+    if (!username && !email && !password) {
         return res.status(400).json({ message: "All fields must be informed!" });
     } else if (password.length < 3) {
         return res.status(400).json({ message: "Password must be at least 3 characters long!" })
@@ -26,7 +26,7 @@ userRouter.post('/', async (req, res) => {
 
     const newUser = new User({
         username,
-        name,
+        email,
         passwordHash
     })
 

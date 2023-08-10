@@ -9,9 +9,10 @@ const userSchema = new mongoose.Schema(
             unique: true,
             minLength: 3
         },
-        name: {
+        email: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         passwordHash: {
             type: String,

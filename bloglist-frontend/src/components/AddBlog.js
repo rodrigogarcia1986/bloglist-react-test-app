@@ -1,19 +1,20 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
+import { createBlog } from '../reducers/blogsReducer'
+import { useField } from '../utils/helpers'
 
-const AddBlog = ({
-  handleAddBlog,
-  handleBlogTitleChange,
-  handleBlogAuthorChange,
-  handleBlogUrlChange,
-  newBlogTitle,
-  newBlogAuthor,
-  newBlogUrl,
-}) => {
+const AddBlog = () => {
+
+  const dispatch = useDispatch()
+
   const [isVisible, setVisible] = useState(false)
 
   const hideWhenVisible = { display: isVisible ? 'none' : '' }
   const showWhenVisible = { display: isVisible ? '' : 'none' }
+
+  const { reset: resetTitle, ...title } = useField('text')
+  const { reset: resetAuthor, ...author } = useField('text')
+  const { reset: resetUrl, ...url } = useField('text')
 
   return (
     <>
@@ -24,32 +25,25 @@ const AddBlog = ({
       <div style={showWhenVisible}>
         <h3>Create new blog!</h3>
         <br />
-        <form onSubmit={handleAddBlog}>
+        <form>
           <label>title</label>{' '}
-          <input
-            id="title"
-            type="text"
-            value={newBlogTitle}
-            onChange={handleBlogTitleChange}
-          />
+          <input {...title} />
           <br />
           <label>author</label>{' '}
           <input
-            id="author"
-            type="text"
-            value={newBlogAuthor}
-            onChange={handleBlogAuthorChange}
-          />
+            {...author} />
           <br />
           <label>url</label>{' '}
           <input
-            id="url"
-            type="text"
-            value={newBlogUrl}
-            onChange={handleBlogUrlChange}
-          />
+            {...url} />
           <br />
-          <button id="create" type="submit">
+          <button id="create" type="button" onClick={() => {
+            const newBlog = { title: title.value, author: author.value, url: url.value }
+            dispatch(createBlog(newBlog))
+            resetTitle()
+            resetAuthor()
+            resetUrl()
+          }}>
             create!
           </button>
           <br />
@@ -57,16 +51,6 @@ const AddBlog = ({
       </div>
     </>
   )
-}
-
-AddBlog.propTypes = {
-  handleAddBlog: PropTypes.func.isRequired,
-  handleBlogTitleChange: PropTypes.func.isRequired,
-  handleBlogAuthorChange: PropTypes.func.isRequired,
-  handleBlogUrlChange: PropTypes.func.isRequired,
-  newBlogTitle: PropTypes.string.isRequired,
-  newBlogAuthor: PropTypes.string.isRequired,
-  newBlogUrl: PropTypes.string.isRequired,
 }
 
 export default AddBlog

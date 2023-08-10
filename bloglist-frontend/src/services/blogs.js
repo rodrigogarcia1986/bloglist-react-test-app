@@ -9,24 +9,19 @@ const setToken = (newToken) => {
 }
 
 const getAll = () => {
-  const request = axios.get(baseUrl)
-  return request.then((response) => response.data)
+  const response = axios.get(baseUrl)
+    .then((response) => response.data)
+  return response
 }
 
-const create = async (title, author, url) => {
+const create = async (newBlog) => {
 
   const config = {
     headers: { Authorization: token },
   }
 
-  const newBlog = {
-    title,
-    author,
-    url,
-  }
-
-  console.log('blogSent:', newBlog, '\nToken sent:', token)
-  console.log('config sent:', config)
+  //console.log('blogSent:', newBlog, '\nToken sent:', token)
+  //console.log('config sent:', config)
 
   const response = await axios.post(baseUrl, newBlog, config)
   return response.data
@@ -65,7 +60,7 @@ const blogUpdate = async (id, dataToUpdate) => {
 
   try {
     const response = await axios.put(`${baseUrl}/${id}`, dataToUpdate, config)
-    console.log('Sucessful update:', response)
+    //console.log('Sucessful update:', response)
     return response
   } catch (error) {
     if (error.response && error.response.status !== 204) {
@@ -79,4 +74,16 @@ const blogUpdate = async (id, dataToUpdate) => {
   }
 }
 
-export default { getAll, create, setToken, blogDelete, blogUpdate }
+const commentBlog = (id, comment) => {
+
+  try {
+    const response = axios.post(`${baseUrl}/${id}`, { comment })
+    return response
+  } catch (error) {
+    return error.message
+  }
+
+}
+
+
+export default { getAll, create, setToken, blogDelete, blogUpdate, commentBlog }

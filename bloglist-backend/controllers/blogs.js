@@ -21,12 +21,15 @@ blogsRouter.get('/', async (req, res) => {
 
 blogsRouter.post('/', async (req, res) => {
 
-
     console.log("req received", req.body, "\nreq.token:", req.token, "\nred.decodedToken:", req.decodedToken)
+
+    if (!req.token) {
+        return res.status(401).json({ error: 'token missing or invalid' })
+    }
 
     const decodedToken = jwt.verify((req.token), process.env.SECRET)
 
-    if (!req.token || !req.decodedToken) {
+    if (!req.decodedToken) {
         //console.log("request", req)
         return res.status(401).json({ error: 'token missing or invalid' })
     }
@@ -41,7 +44,7 @@ blogsRouter.post('/', async (req, res) => {
     }
 
     if (!title || !author || !url) {
-        res.status(400).json({ error: "Title, author and url must be informed!" })
+        return res.status(400).json({ error: "Title, author and url must be informed!" })
     }
 
     const existingBlog = await Blog.findOne({ title })
@@ -52,33 +55,44 @@ blogsRouter.post('/', async (req, res) => {
 
     // console.log("CHEGOU ATÉ AQUI E TRAVOU")
 
-    const user = await User.findById(req.decodedToken.id)
-    console.log("User found on creating blog to add:", user)
+    let user = await User.findById(req.decodedToken.id)
+    //console.log("User found on creating blog to add:", user)
+    //console.log("User ID found on creating blog to add:", user.id)
+
 
     const blog = new Blog({
         title,
         author,
         url,
-        user
+        user: user.id
     });
 
     const savedBlog = await blog.save()
 
-    return res.status(201).json(savedBlog)
+    // Adicionar o ID do novo blog ao array "blogs" do usuário
+    user.blogs.push(savedBlog._id);
+
+    // Salvar o usuário com a nova associação
+    await user.save();
+
+    const { _v: _, passwordHash: __, ...returnedBlog } = savedBlog._doc
+
+    const blogToReturn = {
+        id: returnedBlog._id,
+        title: returnedBlog.title,
+        author: returnedBlog.author,
+        url: returnedBlog.url,
+        user: returnedBlog.user,
+        comments: returnedBlog.comments
+    }
+
+    //console.log("blog to return:", blogToReturn)
+
+    return res.status(201).json(blogToReturn)
 
 });
 
 blogsRouter.delete('/:id', async (req, res) => {
-    // const existingBlog = await Blog.findById(id)
-
-    // if (existingBlog === null) {
-    //     return res.status(400).json({ error: "There is no entry for the informed id" })
-    // } else {
-
-    //     await Blog.findByIdAndDelete(id)
-
-    //     return res.status(204).send()
-    // }
 
     console.log("req received", req.body, "\nreq.token:", req.token, "\nred.decodedToken:", req.decodedToken)
 
@@ -93,7 +107,7 @@ blogsRouter.delete('/:id', async (req, res) => {
         return res.status(400).json({ error: "ID must be informed" })
     }
 
-    console.log("ID received on backend for deletion:", id)
+    console.log("BLOGS'S ID received on backend for deletion:", id)
     console.log('TOKEN received', req.token, "\nDecodedToken:", req.decodedToken)
 
     try {
@@ -104,7 +118,7 @@ blogsRouter.delete('/:id', async (req, res) => {
             console.log("Blog deleted!")
             return res.status(204).send()
         } else {
-            res.status(400).send()
+            res.status(401).send()
         }
     } catch (error) {
         res.status(400).send(error)
@@ -148,6 +162,46 @@ blogsRouter.put('/:id', async (req, res) => {
     await Blog.findByIdAndUpdate(id, dataToUpdate, { new: true })
 
     return res.status(204).send()
+})
+
+blogsRouter.post('/:id', async (req, res) => {
+
+    const { id } = req.params
+
+    const { comment } = req.body
+
+    if (!comment) {
+        return res.status(400).json({ message: "Não é possível enviar comentário vazio!" })
+    }
+
+    //console.log("req.body at comment:", comment)
+
+    try {
+
+        const blog = await Blog.findById(id)
+
+        blog.comments.push(comment)
+        const savedBlog = await blog.save()
+
+        const { _v: _, passwordHash: __, ...returnedBlog } = savedBlog._doc
+
+        const blogToReturn = {
+            id: returnedBlog._id,
+            title: returnedBlog.title,
+            author: returnedBlog.author,
+            url: returnedBlog.url,
+            user: returnedBlog.user,
+            comments: returnedBlog.comments
+        }
+
+        console.log("found blog by id:", blogToReturn)
+
+
+        return res.status(201).json(blogToReturn)
+
+    } catch (error) {
+        console.log(error.message)
+    }
 })
 
 module.exports = blogsRouter;
