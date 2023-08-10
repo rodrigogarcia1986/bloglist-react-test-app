@@ -33,14 +33,6 @@ const App = () => {
     dispatch(initializeUser())
   }, [dispatch])
 
-  //user for testing
-  //"username": "Alice" ,
-  //"password": "456cde*G"
-
-  // username: 'rodericus',
-  // email: 'rodrigo.manoel@alumni.usp.br',
-  // password: '123abc'
-
   const blogs = useSelector(state => state.blogs)
   let user = useSelector(state => state.user)
   user = user.user
