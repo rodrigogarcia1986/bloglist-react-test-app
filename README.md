@@ -61,18 +61,18 @@ Using React, the frontend also includes the following dependencies:
 <ul>
 <li>"@reduxjs/toolkit": "^1.9.5" - unused</li>
 <li>"@tanstack/react-query": "^4.32.6" - unused<li>
-<li>"@testing-library/jest-dom": "^5.16.5" - unused<li>
-<li>"@testing-library/react": "^13.4.0" - unused<li>
-<li>"@testing-library/user-event": "^13.5.0" - unused<li>
-<li>"axios": "^1.2.3"<li>
-<li>"prop-types": "^15.8.1"<li>
-<li>"react": "^18.2.0"<li>
-<li>"react-dom": "^18.2.0"<li>
-<li>"react-query": "^3.39.3"<li>
-<li>"react-redux": "^8.1.2"<li>
-<li>"react-router-dom": "^6.14.2"<li>
-<li>"react-scripts": "5.0.1"<li>
-<li>"styled-components": "^6.0.7"<li>
-<li>"web-vitals": "^2.1.4" - unused<li>
+<li>"@testing-library/jest-dom": "^5.16.5" - unused</li>
+<li>"@testing-library/react": "^13.4.0" - unused</li>
+<li>"@testing-library/user-event": "^13.5.0" - unused</li>
+<li>"axios": "^1.2.3"</li>
+<li>"prop-types": "^15.8.1"</li>
+<li>"react": "^18.2.0"</li>
+<li>"react-dom": "^18.2.0"</li>
+<li>"react-query": "^3.39.3"</li>
+<li>"react-redux": "^8.1.2"</li>
+<li>"react-router-dom": "^6.14.2"</li>
+<li>"react-scripts": "5.0.1"</li>
+<li>"styled-components": "^6.0.7"</li>
+<li>"web-vitals": "^2.1.4" - unused</li>
 </ul>
 Here again there are some testing dependencies that were previously used but not updated for the final app. So one would use or discard it.
