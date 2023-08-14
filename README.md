@@ -2,7 +2,7 @@
 
 ## Simple react app for developing React Skills
 
-![Main page of the application]("./images/main-page.png")
+![Main page of the application](/images/main-page.png)
 
 ## How to use?
 
@@ -39,7 +39,7 @@ Styles are defined by means of styled-components and can be modified in the styl
 
 There are basically 3 endpoints:
 
-![Basic endpoints]("./images/endpoints.png")
+![Basic endpoints](/images/endpoints.png)
 
 <h3>The app's backend is simple Node.Js using express and the dependencies:<h3>
 <ul>
