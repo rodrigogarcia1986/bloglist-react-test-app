@@ -1,15 +1,14 @@
 const { MONGODB_URI } = require('./utils/config');
-const { info, error } = require('./utils/logger');
+const { info } = require('./utils/logger');
 const express = require('express');
 require('express-async-errors');
 const app = express();
 //const cors = require('cors');
 const router = require('./controllers/blogs');
 const userRouter = require('./controllers/users')
-const { requestLogger, unknownEndpoint, errorHandler, tokenExtractor, userExtractor } = require('./utils/middleware')
+const { requestLogger, unknownEndpoint, errorHandler, tokenExtractor } = require('./utils/middleware')
 const mongo = require('mongoose');
 const loginRouter = require('./controllers/login')
-
 
 mongo.connect(MONGODB_URI, info("Connecting to Mongo..."))
     .then(info("Conection to Mongo successfully established!"))
