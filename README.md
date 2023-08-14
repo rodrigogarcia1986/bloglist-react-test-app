@@ -60,7 +60,7 @@ Using React, the frontend also includes the following dependencies:
 
 <ul>
 <li>"@reduxjs/toolkit": "^1.9.5" - unused</li>
-<li>"@tanstack/react-query": "^4.32.6" - unused<li>
+<li>"@tanstack/react-query": "^4.32.6" - unused</li>
 <li>"@testing-library/jest-dom": "^5.16.5" - unused</li>
 <li>"@testing-library/react": "^13.4.0" - unused</li>
 <li>"@testing-library/user-event": "^13.5.0" - unused</li>
