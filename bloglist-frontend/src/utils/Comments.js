@@ -2,6 +2,7 @@
 import { useDispatch } from 'react-redux'
 import { useField } from './helpers'
 import { submitComment } from '../reducers/blogsReducer'
+import { BlogText, Button, Title } from '../styles'
 
 const Comments = (blog) => {
 
@@ -17,19 +18,20 @@ const Comments = (blog) => {
 
     return (
         <>
-            <ul>
-                {comments.length === 0 ? <li>no comments yet! Be the first!</li>
-                    : comments.length === 1 ? <li>{comments[0]}</li> : comments.map((text, index) => <li key={index}>{text}</li>)}
-            </ul>
+            <Title>Comments</Title>
+
+            {comments.length === 0 ? <BlogText>no comments yet! Be the first!</BlogText>
+                : comments.length === 1 ? <BlogText>{comments[0]}</BlogText> : comments.map((text, index) => <BlogText key={index}>{text}</BlogText>)}
+
             <h3>Add comments!</h3>
             <form>
                 <label>comment: </label>
                 <input {...comment} placeholder='awesome blog!!!' />
-                <button type='button' onClick={() => {
+                <Button type='button' onClick={() => {
                     console.log('comment.value at comments:', comment.value)
                     dispatch(submitComment(blog.blog.id, comment.value))
                     resetComment()
-                }}>submit now</button>
+                }}>submit now</Button>
             </form>
         </>
     )

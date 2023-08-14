@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style *//* eslint-disable linebreak-style *//* eslint-disable indent *//* eslint-disable linebreak-style */
 import { Link } from 'react-router-dom'
+import { Title, BlogText } from '../styles'
 
 const UserDetail = ({ user, blogs }) => {
 
@@ -13,10 +14,11 @@ const UserDetail = ({ user, blogs }) => {
 
     return (
         <div>
-            <h2>{user.username}</h2>
+            <Title>{user.username}</Title>
             <h4>Added blogs</h4>
+
             <ul>
-                {userBlogs.map(blog => <li key={blog.id}><Link to={`/blogs/${blog.id}`}>{blog.title}</Link></li>)}
+                {userBlogs.map(blog => <BlogText key={blog.id}><li><Link to={`/blogs/${blog.id}`}>{blog.title}</Link></li></BlogText>)}
             </ul>
         </div>
     )

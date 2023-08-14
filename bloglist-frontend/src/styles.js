@@ -35,6 +35,7 @@ const Button = styled.button`
 
 const Container = styled.div`
   text-align: center;
+  align-items: center;
 `
 
 const FooterDiv = styled.div`

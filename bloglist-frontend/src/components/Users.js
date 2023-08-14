@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { initializeUsers } from '../reducers/userReducer'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { BlogText, Container, Title } from '../styles'
 
 const Users = () => {
 
@@ -17,22 +18,24 @@ const Users = () => {
 
     return (
         <>
-            <h3>Users</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>username</th>
-                        <th>blogs created</th>
-                    </tr>
+            <Container>
+                <Title>Users</Title>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th><Title>username |</Title></th>
+                            <th><Title>blogs created</Title></th>
+                        </tr>
 
-                    {users.map(user =>
-                        <tr key={user.id}>
-                            <td><Link to={`/users/${user.id}`}>{user.username}</Link></td>
-                            <td> {user.blogs.length}</td>
-                        </tr>)}
+                        {users.map(user =>
+                            <tr key={user.id}>
+                                <td><Link to={`/users/${user.id}`}><BlogText>{user.username}</BlogText></Link></td>
+                                <td> <BlogText>{user.blogs.length}</BlogText></td>
+                            </tr>)}
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </Container>
         </>
     )
 
