@@ -1,6 +1,7 @@
 # bloglist-react-test-app
 
 ## Simple react app for developing React Skills
+### This is a simple web application using React that simulates a blog, with basic functionalities. You can modify as you want and deploy your custom app as you wish.
 
 ![Main page of the application](/images/main-page.png)
 
